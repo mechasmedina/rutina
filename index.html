@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rutina Semanal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f4ef;
+    --card: #ffffff;
+    --card2: #f2ede6;
+    --accent-run: #c0392b;
+    --accent-legs: #1a6b4a;
+    --accent-pilates: #7b5ea7;
+    --accent-rest: #b0a090;
+    --text: #1a1a1a;
+    --muted: #999;
+    --border: #e8e2d8;
+    --done-bg: #f0faf4;
+    --done-accent: #27ae60;
+    --radius: 18px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* HEADER */
+  .top-header {
+    padding: 52px 16px 20px;
+    background: var(--text);
+    color: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .top-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 28px;
+    background: var(--bg);
+    border-radius: 28px 28px 0 0;
+  }
+  .th-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(247,244,239,0.5);
+    margin-bottom: 8px;
+  }
+  .th-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 1.05;
+  }
+  .th-title span { color: #f5a623; }
+
+  /* WEEK STRIP */
+  .week-strip {
+    padding: 16px 12px 4px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .week-strip::-webkit-scrollbar { display: none; }
+
+  .day-pill {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: all 0.2s;
+    background: var(--card);
+    min-width: 54px;
+  }
+  .day-pill.active { background: var(--text); color: var(--bg); }
+  .dp-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; opacity: 0.6; }
+  .dp-name { font-size: 13px; font-weight: 600; }
+  .dp-dot { width: 5px; height: 5px; border-radius: 50%; opacity: 0.3; background: currentColor; }
+  .day-pill[data-type="run"] .dp-dot { background: var(--accent-run); opacity: 1; }
+  .day-pill[data-type="legs"] .dp-dot { background: var(--accent-legs); opacity: 1; }
+  .day-pill[data-type="pilates"] .dp-dot { background: var(--accent-pilates); opacity: 1; }
+
+  /* DAY VIEWS */
+  .day-view { padding: 8px 12px 0; display: none; }
+  .day-view.active { display: block; }
+
+  .day-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 99px;
+    margin-bottom: 10px;
+  }
+  .tag-run { background: rgba(192,57,43,0.1); color: var(--accent-run); }
+  .tag-legs { background: rgba(26,107,74,0.1); color: var(--accent-legs); }
+  .tag-pilates { background: rgba(123,94,167,0.1); color: var(--accent-pilates); }
+  .tag-rest { background: rgba(176,160,144,0.15); color: var(--accent-rest); }
+
+  /* PROGRESS */
+  .prog-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    margin-top: 4px;
+  }
+  .prog-bar { flex: 1; height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 99px; transition: width 0.4s cubic-bezier(.4,0,.2,1); width: 0%; }
+  .fill-run { background: var(--accent-run); }
+  .fill-legs { background: var(--accent-legs); }
+  .prog-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+  /* SECTIONS */
+  .section { margin-bottom: 14px; }
+  .section-title {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    padding-left: 2px;
+  }
+
+  /* EXERCISE CARDS */
+  .exercise-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card);
+    border-radius: 14px;
+    padding: 13px 14px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    transition: all 0.22s ease;
+  }
+  .exercise-item.done {
+    background: var(--done-bg);
+    border-color: rgba(39,174,96,0.3);
+  }
+  .check-box {
+    width: 24px; height: 24px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 12px;
+    color: transparent;
+    transition: all 0.22s;
+  }
+  .exercise-item.done .check-box {
+    background: var(--done-accent);
+    border-color: var(--done-accent);
+    color: #fff;
+    animation: popIn 0.25s ease;
+  }
+  .ex-info { flex: 1; }
+  .ex-name { font-size: 14px; font-weight: 500; transition: color 0.22s; }
+  .exercise-item.done .ex-name {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: rgba(0,0,0,0.15);
+  }
+  .ex-detail { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .ex-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 99px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .badge-run { background: rgba(192,57,43,0.08); color: var(--accent-run); }
+  .badge-legs { background: rgba(26,107,74,0.08); color: var(--accent-legs); }
+
+  /* RUN CARD */
+  .run-card {
+    background: var(--accent-run);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .run-card.done { opacity: 0.5; }
+  .run-card-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; margin-bottom: 4px; }
+  .run-card-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; }
+  .run-card-sub { font-size: 12px; opacity: 0.75; margin-top: 4px; }
+  .run-icon { font-size: 40px; opacity: 0.85; }
+
+  /* REST & PILATES */
+  .rest-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .rest-icon { font-size: 40px; margin-bottom: 12px; }
+  .rest-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--accent-rest); }
+  .rest-sub { font-size: 13px; color: var(--muted); margin-top: 6px; font-weight: 300; }
+
+  .pilates-card {
+    background: var(--accent-pilates);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .pilates-icon { font-size: 44px; margin-bottom: 12px; }
+  .pilates-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; }
+  .pilates-sub { font-size: 13px; opacity: 0.8; margin-top: 8px; font-weight: 300; }
+
+  /* RESET */
+  .reset-wrap { padding: 20px 12px 0; display: flex; justify-content: center; }
+  .reset-btn {
+    background: transparent;
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    padding: 10px 28px;
+    border-radius: 99px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { border-color: var(--text); color: var(--text); }
+
+  /* CELEBRATION */
+  .celebration { display: none; text-align: center; padding: 20px 0 0; animation: fadeUp 0.4s ease; }
+  .celebration.show { display: block; }
+  .cel-emoji { font-size: 36px; }
+  .cel-text { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--done-accent); margin-top: 6px; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes popIn { 0% { transform: scale(1); } 35% { transform: scale(1.25); } 100% { transform: scale(1); } }
+</style>
+</head>
+<body>
+
+<div class="top-header">
+  <div class="th-eyebrow">Plan semanal</div>
+  <div class="th-title">Tu <span>rutina</span></div>
+</div>
+
+<div class="week-strip">
+  <div class="day-pill active" data-day="0" data-type="run" onclick="showDay(0)">
+    <div class="dp-label">Lun</div><div class="dp-name">Correr</div><div class="dp-dot"></div>
+  </div>
+  <div class="day-pill" data-day="1" data-type="legs" onclick="showDay(1)">
+    <div class="dp-label">Mar</div><div class="dp-name">Piernas</div><div class="dp-dot"></div>
+  </div>
+  <div class="day-pill" data-day="2" data-type="rest" onclick="showDay(2)">
+    <div class="dp-label">Mié</div><div class="dp-name">Descanso</div><div class="dp-dot"></div>
+  </div>
+  <div class="day-pill" data-day="3" data-type="run" onclick="showDay(3)">
+    <div class="dp-label">Jue</div><div class="dp-name">Correr</div><div class="dp-dot"></div>
+  </div>
+  <div class="day-pill" data-day="4" data-type="legs" onclick="showDay(4)">
+    <div class="dp-label">Vie</div><div class="dp-name">Piernas</div><div class="dp-dot"></div>
+  </div>
+  <div class="day-pill" data-day="5" data-type="pilates" onclick="showDay(5)">
+    <div class="dp-label">Sáb</div><div class="dp-name">Pilates</div><div class="dp-dot"></div>
+  </div>
+  <div class="day-pill" data-day="6" data-type="rest" onclick="showDay(6)">
+    <div class="dp-label">Dom</div><div class="dp-name">Descanso</div><div class="dp-dot"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     LUNES — Correr + Brazos
+     Total: 1 run + 11 ejercicios = 12? 
+     Counting only exercises = 11, run = 1 → total 12... 
+     But user had 7 items originally. Let's count:
+     run(1) + set1(4) + set2(4) + set3(3) = 12
+     ══════════════════════════════ -->
+<div class="day-view active" id="day-0">
+  <div class="day-tag tag-run">🏃‍♀️ Correr + Brazos</div>
+
+  <div class="section">
+    <div class="section-title">Cardio</div>
+    <div class="run-card" id="run-0" onclick="toggleRun('run-0', 'prog-0', 12)">
+      <div>
+        <div class="run-card-label">Meta del día</div>
+        <div class="run-card-title">25–30 min</div>
+        <div class="run-card-sub">Ritmo moderado · constante</div>
+      </div>
+      <div class="run-icon">🏃‍♀️</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Set 1 · Hombros</div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-0', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Platter serve frontal</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-0', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Platter serve lateral</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-0', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Around the world</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-0', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Lateral raises</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3 kg</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Set 2 · Bíceps & Tríceps</div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-0', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Tricep kick backs</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3–6 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-0', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Underhand row</div><div class="ex-detail">3 × 12 reps</div></div>
+      <div class="ex-badge badge-run">6 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-0', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Bicep martillo</div><div class="ex-detail">3 × 12 reps</div></div>
+      <div class="ex-badge badge-run">6 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-0', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Bicep curls</div><div class="ex-detail">3 × 12 reps</div></div>
+      <div class="ex-badge badge-run">6 kg</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Set 3 · Sobre espalda</div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-0', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Skull crushes</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-0', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Press up</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3–6 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-0', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Abrir brazos</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3 kg</div>
+    </div>
+  </div>
+
+  <div class="prog-row">
+    <div class="prog-bar"><div class="prog-fill fill-run" id="prog-0" style="width:0%"></div></div>
+    <div class="prog-label" id="prog-0-label">0 / 12</div>
+  </div>
+  <div class="celebration" id="cel-0"><div class="cel-emoji">🔥</div><div class="cel-text">¡Lunes completado!</div></div>
+</div>
+
+<!-- ══════════════════════════════
+     MARTES — Piernas
+     8 ejercicios
+     ══════════════════════════════ -->
+<div class="day-view" id="day-1">
+  <div class="day-tag tag-legs">🦵 Piernas · Aductores & Glúteos</div>
+
+  <div class="section">
+    <div class="section-title">Compuestos</div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-1', 8)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Sentadilla sumo</div><div class="ex-detail">3 × 15 · mancuerna centro + banda en rodillas</div></div>
+      <div class="ex-badge badge-legs">6 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-1', 8)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Zancada lateral</div><div class="ex-detail">3 × 12 c/lado</div></div>
+      <div class="ex-badge badge-legs">3 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-1', 8)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Sentadilla búlgara</div><div class="ex-detail">3 × 10 c/lado · pie trasero elevado</div></div>
+      <div class="ex-badge badge-legs">3 kg</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Aductores con banda</div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-1', 8)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Aducción de pie</div><div class="ex-detail">3 × 15 c/lado · banda anclada al lado</div></div>
+      <div class="ex-badge badge-legs">Banda</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-1', 8)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Aducción lateral acostada</div><div class="ex-detail">3 × 15 c/lado · pierna de abajo sube</div></div>
+      <div class="ex-badge badge-legs">Banda</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-1', 8)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Mariposa sentada</div><div class="ex-detail">3 × 20 · banda sobre muslos</div></div>
+      <div class="ex-badge badge-legs">Banda</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Glúteos</div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-1', 8)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Puente de glúteos</div><div class="ex-detail">3 × 15 · banda + mancuerna en cadera</div></div>
+      <div class="ex-badge badge-legs">6 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-1', 8)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Patada trasera con banda</div><div class="ex-detail">3 × 15 c/lado · en cuatro puntos</div></div>
+      <div class="ex-badge badge-legs">Banda</div>
+    </div>
+  </div>
+
+  <div class="prog-row">
+    <div class="prog-bar"><div class="prog-fill fill-legs" id="prog-1" style="width:0%"></div></div>
+    <div class="prog-label" id="prog-1-label">0 / 8</div>
+  </div>
+  <div class="celebration" id="cel-1"><div class="cel-emoji">💪</div><div class="cel-text">¡Martes completado!</div></div>
+</div>
+
+<!-- ══════════════════════════════
+     MIÉRCOLES — Descanso
+     ══════════════════════════════ -->
+<div class="day-view" id="day-2">
+  <div class="day-tag tag-rest">☁️ Descanso activo</div>
+  <div class="rest-card">
+    <div class="rest-icon">🚶‍♀️</div>
+    <div class="rest-title">Recuperación</div>
+    <div class="rest-sub">Caminar 20–30 min suave<br>Estirar piernas y espalda</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     JUEVES — Correr + Brazos
+     12 items (mismo que lunes)
+     ══════════════════════════════ -->
+<div class="day-view" id="day-3">
+  <div class="day-tag tag-run">🏃‍♀️ Correr + Brazos</div>
+
+  <div class="section">
+    <div class="section-title">Cardio</div>
+    <div class="run-card" id="run-3" onclick="toggleRun('run-3', 'prog-3', 12)">
+      <div>
+        <div class="run-card-label">Sube la intensidad</div>
+        <div class="run-card-title">30–35 min</div>
+        <div class="run-card-sub">Intervalos cortos · más ritmo</div>
+      </div>
+      <div class="run-icon">⚡</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Set 1 · Hombros</div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-3', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Platter serve frontal</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-3', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Platter serve lateral</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-3', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Around the world</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-3', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Lateral raises</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3 kg</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Set 2 · Bíceps & Tríceps</div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-3', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Tricep kick backs</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3–6 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-3', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Underhand row</div><div class="ex-detail">3 × 12 reps</div></div>
+      <div class="ex-badge badge-run">6 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-3', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Bicep martillo</div><div class="ex-detail">3 × 12 reps</div></div>
+      <div class="ex-badge badge-run">6 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-3', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Bicep curls</div><div class="ex-detail">3 × 12 reps</div></div>
+      <div class="ex-badge badge-run">6 kg</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Set 3 · Sobre espalda</div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-3', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Skull crushes</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-3', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Press up</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3–6 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-3', 12)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Abrir brazos</div><div class="ex-detail">3 × 15 reps</div></div>
+      <div class="ex-badge badge-run">3 kg</div>
+    </div>
+  </div>
+
+  <div class="prog-row">
+    <div class="prog-bar"><div class="prog-fill fill-run" id="prog-3" style="width:0%"></div></div>
+    <div class="prog-label" id="prog-3-label">0 / 12</div>
+  </div>
+  <div class="celebration" id="cel-3"><div class="cel-emoji">🔥</div><div class="cel-text">¡Jueves completado!</div></div>
+</div>
+
+<!-- ══════════════════════════════
+     VIERNES — Piernas
+     9 ejercicios
+     ══════════════════════════════ -->
+<div class="day-view" id="day-4">
+  <div class="day-tag tag-legs">🦵 Piernas · Aductores & Glúteos</div>
+
+  <div class="section">
+    <div class="section-title">Compuestos</div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-4', 9)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Sentadilla sumo</div><div class="ex-detail">3 × 15 · mancuerna centro + banda en rodillas</div></div>
+      <div class="ex-badge badge-legs">6 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-4', 9)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Zancada lateral</div><div class="ex-detail">3 × 12 c/lado</div></div>
+      <div class="ex-badge badge-legs">3 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-4', 9)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Sentadilla búlgara</div><div class="ex-detail">3 × 10 c/lado · sube peso si puedes</div></div>
+      <div class="ex-badge badge-legs">3–6 kg</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Aductores con banda</div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-4', 9)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Aducción de pie</div><div class="ex-detail">3 × 15 c/lado</div></div>
+      <div class="ex-badge badge-legs">Banda</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-4', 9)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Aducción lateral acostada</div><div class="ex-detail">3 × 15 c/lado</div></div>
+      <div class="ex-badge badge-legs">Banda</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-4', 9)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Mariposa sentada</div><div class="ex-detail">3 × 20 · banda sobre muslos</div></div>
+      <div class="ex-badge badge-legs">Banda</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Glúteos</div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-4', 9)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Puente de glúteos</div><div class="ex-detail">3 × 15 · banda + mancuerna en cadera</div></div>
+      <div class="ex-badge badge-legs">6 kg</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-4', 9)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Patada trasera con banda</div><div class="ex-detail">3 × 15 c/lado</div></div>
+      <div class="ex-badge badge-legs">Banda</div>
+    </div>
+    <div class="exercise-item" onclick="toggleEx(this, 'prog-4', 9)">
+      <div class="check-box">✓</div>
+      <div class="ex-info"><div class="ex-name">Clamshell con banda</div><div class="ex-detail">3 × 20 c/lado · acostada de lado</div></div>
+      <div class="ex-badge badge-legs">Banda</div>
+    </div>
+  </div>
+
+  <div class="prog-row">
+    <div class="prog-bar"><div class="prog-fill fill-legs" id="prog-4" style="width:0%"></div></div>
+    <div class="prog-label" id="prog-4-label">0 / 9</div>
+  </div>
+  <div class="celebration" id="cel-4"><div class="cel-emoji">🌿</div><div class="cel-text">¡Viernes completado!</div></div>
+</div>
+
+<!-- ══════════════════════════════
+     SÁBADO — Pilates
+     ══════════════════════════════ -->
+<div class="day-view" id="day-5">
+  <div class="day-tag tag-pilates">🧘‍♀️ Pilates</div>
+  <div class="pilates-card">
+    <div class="pilates-icon">🧘‍♀️</div>
+    <div class="pilates-title">Clase de Pilates</div>
+    <div class="pilates-sub">45–60 min · studio<br>Core, movilidad y elongación</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     DOMINGO — Descanso
+     ══════════════════════════════ -->
+<div class="day-view" id="day-6">
+  <div class="day-tag tag-rest">☀️ Descanso total</div>
+  <div class="rest-card">
+    <div class="rest-icon">🛁</div>
+    <div class="rest-title">Recuperación completa</div>
+    <div class="rest-sub">Tu cuerpo construye músculo<br>cuando descansas — merécetelo</div>
+  </div>
+</div>
+
+<div class="reset-wrap">
+  <button class="reset-btn" onclick="resetDay()">↺ Reiniciar este día</button>
+</div>
+
+<script>
+  let currentDay = 0;
+
+  function showDay(idx) {
+    document.querySelectorAll('.day-view').forEach(d => d.classList.remove('active'));
+    document.querySelectorAll('.day-pill').forEach(p => p.classList.remove('active'));
+    document.getElementById('day-' + idx).classList.add('active');
+    document.querySelector('[data-day="' + idx + '"]').classList.add('active');
+    currentDay = idx;
+  }
+
+  function toggleEx(el, progId, total) {
+    el.classList.toggle('done');
+    updateProg(progId, total);
+  }
+
+  function toggleRun(cardId, progId, total) {
+    document.getElementById(cardId).classList.toggle('done');
+    updateProg(progId, total);
+  }
+
+  function updateProg(progId, total) {
+    const dayEl = document.getElementById('day-' + currentDay);
+    const doneEx = dayEl.querySelectorAll('.exercise-item.done').length;
+    const doneRun = dayEl.querySelectorAll('.run-card.done').length;
+    const done = doneEx + doneRun;
+    const pct = Math.round((done / total) * 100);
+    const fill = document.getElementById(progId);
+    const label = document.getElementById(progId + '-label');
+    if (fill) fill.style.width = pct + '%';
+    if (label) label.textContent = done + ' / ' + total;
+    const cel = document.getElementById('cel-' + currentDay);
+    if (cel) { done >= total ? cel.classList.add('show') : cel.classList.remove('show'); }
+  }
+
+  function resetDay() {
+    const dayEl = document.getElementById('day-' + currentDay);
+    dayEl.querySelectorAll('.exercise-item').forEach(e => e.classList.remove('done'));
+    dayEl.querySelectorAll('.run-card').forEach(e => e.classList.remove('done'));
+    dayEl.querySelectorAll('.prog-fill').forEach(f => f.style.width = '0%');
+    dayEl.querySelectorAll('.prog-label').forEach(l => {
+      const parts = l.textContent.split('/');
+      if (parts.length === 2) l.textContent = '0 / ' + parts[1].trim();
+    });
+    const cel = document.getElementById('cel-' + currentDay);
+    if (cel) cel.classList.remove('show');
+  }
+</script>
+</body>
+</html>
