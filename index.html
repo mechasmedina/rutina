@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -8,394 +7,112 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #f5f2ee;
-      --surface: #ffffff;
-      --surface2: #f0ede8;
-      --text: #1a1a1a;
-      --text-muted: #7a7570;
-      --accent: #2d6a4f;
-      --accent2: #52b788;
-      --accent-warm: #e07a5f;
-      --accent-blue: #3d7ab5;
-      --accent-purple: #7b5ea7;
-      --border: #e0dbd4;
-      --tag-bg: #e8f5ee;
-      --tag-text: #2d6a4f;
-      --rest-bg: #fdf6f0;
-      --rest-text: #c17a52;
-      --core-bg: #f0ebf8;
-      --core-text: #7b5ea7;
-      --walk-bg: #e8f4fd;
-      --walk-text: #3d7ab5;
+      --bg: #f5f2ee; --surface: #ffffff; --surface2: #f0ede8;
+      --text: #1a1a1a; --text-muted: #7a7570;
+      --accent: #2d6a4f; --accent2: #52b788;
+      --accent-warm: #e07a5f; --accent-blue: #3d7ab5; --accent-purple: #7b5ea7;
+      --border: #e0dbd4; --tag-bg: #e8f5ee; --tag-text: #2d6a4f;
+      --rest-bg: #fdf6f0; --rest-text: #c17a52;
+      --walk-bg: #e8f4fd; --walk-text: #3d7ab5;
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 40px; }
 
-```
-* { box-sizing: border-box; margin: 0; padding: 0; }
+    .header { background: var(--accent); padding: 28px 20px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(45,106,79,0.15); }
+    .header h1 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: #fff; letter-spacing: -0.02em; }
+    .header p { font-size: 1rem; color: rgba(255,255,255,0.7); margin-top: 2px; }
 
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  padding-bottom: 40px;
-}
+    .tabs-wrap { overflow-x: auto; background: var(--accent); padding: 0 16px 16px; scrollbar-width: none; }
+    .tabs-wrap::-webkit-scrollbar { display: none; }
+    .tabs { display: flex; gap: 8px; width: max-content; }
+    .tab { background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 6px 14px; color: rgba(255,255,255,0.8); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .tab.active { background: #fff; color: var(--accent); font-weight: 600; }
+    .tab:hover:not(.active) { background: rgba(255,255,255,0.25); }
 
-/* HEADER */
-.header {
-  background: var(--accent);
-  padding: 28px 20px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 12px rgba(45,106,79,0.15);
-}
-.header h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.5rem;
-  color: #fff;
-  letter-spacing: -0.02em;
-}
-.header p {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.7);
-  margin-top: 2px;
-}
+    .content { padding: 20px 16px; max-width: 540px; margin: 0 auto; }
+    .day-panel { display: none; }
+    .day-panel.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-/* DAY TABS */
-.tabs-wrap {
-  overflow-x: auto;
-  background: var(--accent);
-  padding: 0 16px 16px;
-  scrollbar-width: none;
-}
-.tabs-wrap::-webkit-scrollbar { display: none; }
-.tabs {
-  display: flex;
-  gap: 8px;
-  width: max-content;
-}
-.tab {
-  background: rgba(255,255,255,0.15);
-  border: none;
-  border-radius: 20px;
-  padding: 6px 14px;
-  color: rgba(255,255,255,0.8);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.tab.active {
-  background: #fff;
-  color: var(--accent);
-  font-weight: 600;
-}
-.tab:hover:not(.active) {
-  background: rgba(255,255,255,0.25);
-}
+    .day-hero { background: var(--surface); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); }
+    .day-hero-top { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .day-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .icon-green { background: var(--tag-bg); }
+    .icon-warm { background: #fdeee9; }
+    .icon-blue { background: var(--walk-bg); }
+    .icon-purple { background: #f0ebf8; }
+    .icon-rest { background: var(--rest-bg); }
+    .day-hero h2 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--text); line-height: 1.2; }
+    .day-hero .subtitle { font-size: 1rem; color: var(--text-muted); margin-top: 2px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; }
+    .badge { font-size: 0.9rem; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
+    .badge-green { background: var(--tag-bg); color: var(--tag-text); }
+    .badge-blue { background: var(--walk-bg); color: var(--walk-text); }
+    .badge-purple { background: #f0ebf8; color: var(--accent-purple); }
+    .badge-warm { background: #fdeee9; color: var(--accent-warm); }
+    .badge-rest { background: var(--rest-bg); color: var(--rest-text); }
 
-/* CONTENT */
-.content {
-  padding: 20px 16px;
-  max-width: 540px;
-  margin: 0 auto;
-}
+    .section { background: var(--surface); border-radius: 16px; margin-bottom: 14px; overflow: hidden; border: 1px solid var(--border); }
+    .section-header { padding: 14px 18px 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+    .section-header .s-icon { font-size: 1rem; }
+    .section-header h3 { font-size: 1rem; font-weight: 600; color: var(--text); }
+    .section-header .s-badge { margin-left: auto; font-size: 0.85rem; font-weight: 500; padding: 2px 8px; border-radius: 10px; }
 
-.day-panel { display: none; }
-.day-panel.active { display: block; animation: fadeIn 0.25s ease; }
+    .exercise-list { padding: 6px 0; }
+    .exercise-row { display: flex; align-items: center; padding: 11px 18px; gap: 12px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s; }
+    .exercise-row:last-child { border-bottom: none; }
+    .exercise-row:hover { background: var(--surface2); }
+    .exercise-row.done .ex-name { text-decoration: line-through; color: var(--text-muted); }
+    .checkbox { width: 20px; height: 20px; border-radius: 6px; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .exercise-row.done .checkbox { background: var(--accent2); border-color: var(--accent2); }
+    .checkbox-check { color: #fff; font-size: 0.7rem; display: none; }
+    .exercise-row.done .checkbox-check { display: block; }
+    .ex-info { flex: 1; min-width: 0; }
+    .ex-name { font-size: 1rem; font-weight: 500; color: var(--text); }
+    .ex-detail { font-size: 0.9rem; color: var(--text-muted); margin-top: 1px; }
+    .ex-weight { font-size: 0.9rem; font-weight: 600; color: var(--accent); background: var(--tag-bg); padding: 2px 8px; border-radius: 8px; flex-shrink: 0; }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    .walk-block { padding: 16px 18px; display: flex; align-items: center; gap: 14px; }
+    .walk-icon-big { font-size: 1.8rem; }
+    .walk-info h4 { font-size: 1rem; font-weight: 600; }
+    .walk-info p { font-size: 0.9rem; color: var(--text-muted); margin-top: 2px; }
 
-/* DAY HERO */
-.day-hero {
-  background: var(--surface);
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 16px;
-  border: 1px solid var(--border);
-}
-.day-hero-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-.day-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  flex-shrink: 0;
-}
-.icon-green { background: var(--tag-bg); }
-.icon-warm { background: #fdeee9; }
-.icon-blue { background: var(--walk-bg); }
-.icon-purple { background: var(--core-bg); }
-.icon-rest { background: var(--rest-bg); }
+    .runna-block { padding: 16px 18px; }
+    .runna-step { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .runna-step:last-child { border-bottom: none; }
+    .runna-num { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .runna-num.fast { background: var(--accent-warm); }
+    .runna-step-info { flex: 1; }
+    .runna-step-name { font-size: 1rem; font-weight: 500; }
+    .runna-step-detail { font-size: 0.9rem; color: var(--text-muted); margin-top: 1px; }
+    .repeat-badge { background: #fff3ee; color: var(--accent-warm); font-size: 0.9rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; display: inline-block; margin: 8px 0 4px; }
 
-.day-hero h2 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.2rem;
-  color: var(--text);
-  line-height: 1.2;
-}
-.day-hero .subtitle {
-  font-size: 1rem;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
+    .rest-content { padding: 24px 18px; text-align: center; }
+    .rest-emoji { font-size: 2.5rem; margin-bottom: 10px; }
+    .rest-content h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--text); }
+    .rest-content p { font-size: 1rem; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
 
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.badge {
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 3px 10px;
-  border-radius: 20px;
-}
-.badge-green { background: var(--tag-bg); color: var(--tag-text); }
-.badge-blue { background: var(--walk-bg); color: var(--walk-text); }
-.badge-purple { background: var(--core-bg); color: var(--core-text); }
-.badge-warm { background: #fdeee9; color: var(--accent-warm); }
-.badge-rest { background: var(--rest-bg); color: var(--rest-text); }
+    .progress-wrap { background: var(--surface); border-radius: 16px; padding: 16px 18px; margin-bottom: 14px; border: 1px solid var(--border); }
+    .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .progress-label { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+    .progress-count { font-size: 1rem; font-weight: 600; color: var(--accent); }
+    .progress-bar { height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 10px; transition: width 0.4s ease; }
 
-/* SECTION BLOCKS */
-.section {
-  background: var(--surface);
-  border-radius: 16px;
-  margin-bottom: 14px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-}
-.section-header {
-  padding: 14px 18px 10px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.section-header .s-icon { font-size: 1rem; }
-.section-header h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: 0.01em;
-}
-.section-header .s-badge {
-  margin-left: auto;
-  font-size: 0.85rem;
-  font-weight: 500;
-  padding: 2px 8px;
-  border-radius: 10px;
-}
+    .reset-btn { display: block; width: 100%; padding: 13px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px; color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; margin-top: 8px; transition: all 0.2s; }
+    .reset-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-/* EXERCISE ROWS */
-.exercise-list { padding: 6px 0; }
-.exercise-row {
-  display: flex;
-  align-items: center;
-  padding: 11px 18px;
-  gap: 12px;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.exercise-row:last-child { border-bottom: none; }
-.exercise-row:hover { background: var(--surface2); }
-.exercise-row.done .ex-name { text-decoration: line-through; color: var(--text-muted); }
+    .note { background: #fffbf0; border: 1px solid #f0d080; border-radius: 12px; padding: 12px 14px; font-size: 0.95rem; color: #7a6020; line-height: 1.5; margin-bottom: 14px; }
+    .note strong { font-weight: 600; }
 
-.checkbox {
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
-  border: 2px solid var(--border);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-.exercise-row.done .checkbox {
-  background: var(--accent2);
-  border-color: var(--accent2);
-}
-.checkbox-check {
-  color: #fff;
-  font-size: 0.7rem;
-  display: none;
-}
-.exercise-row.done .checkbox-check { display: block; }
-
-.ex-info { flex: 1; min-width: 0; }
-.ex-name {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--text);
-}
-.ex-detail {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin-top: 1px;
-}
-.ex-weight {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--accent);
-  background: var(--tag-bg);
-  padding: 2px 8px;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-.ex-weight.purple { background: var(--core-bg); color: var(--core-text); }
-.ex-weight.blue { background: var(--walk-bg); color: var(--walk-text); }
-
-/* WALK BLOCK */
-.walk-block {
-  padding: 16px 18px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.walk-icon-big { font-size: 1.8rem; }
-.walk-info h4 { font-size: 1rem; font-weight: 600; }
-.walk-info p { font-size: 0.9rem; color: var(--text-muted); margin-top: 2px; }
-
-/* RUNNA BLOCK */
-.runna-block { padding: 16px 18px; }
-.runna-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border);
-}
-.runna-step:last-child { border-bottom: none; }
-.runna-num {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-.runna-num.fast { background: var(--accent-warm); }
-.runna-step-info { flex: 1; }
-.runna-step-name { font-size: 1rem; font-weight: 500; }
-.runna-step-detail { font-size: 0.9rem; color: var(--text-muted); margin-top: 1px; }
-.repeat-badge {
-  background: #fff3ee;
-  color: var(--accent-warm);
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: 20px;
-  display: inline-block;
-  margin: 8px 0 4px;
-}
-
-/* REST DAY */
-.rest-content {
-  padding: 24px 18px;
-  text-align: center;
-}
-.rest-emoji { font-size: 2.5rem; margin-bottom: 10px; }
-.rest-content h3 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.2rem;
-  color: var(--text);
-}
-.rest-content p {
-  font-size: 1rem;
-  color: var(--text-muted);
-  margin-top: 6px;
-  line-height: 1.5;
-}
-
-/* PROGRESS BAR */
-.progress-wrap {
-  background: var(--surface);
-  border-radius: 16px;
-  padding: 16px 18px;
-  margin-bottom: 14px;
-  border: 1px solid var(--border);
-}
-.progress-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-.progress-label { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
-.progress-count { font-size: 1rem; font-weight: 600; color: var(--accent); }
-.progress-bar {
-  height: 6px;
-  background: var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent2), var(--accent));
-  border-radius: 10px;
-  transition: width 0.4s ease;
-}
-
-/* RESET BTN */
-.reset-btn {
-  display: block;
-  width: 100%;
-  padding: 13px;
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  color: var(--text-muted);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  margin-top: 8px;
-  transition: all 0.2s;
-}
-.reset-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-/* NOTE */
-.note {
-  background: #fffbf0;
-  border: 1px solid #f0d080;
-  border-radius: 12px;
-  padding: 12px 14px;
-  font-size: 0.95rem;
-  color: #7a6020;
-  line-height: 1.5;
-  margin-bottom: 14px;
-}
-.note strong { font-weight: 600; }
-```
-
+    .circuit-badge { background: #fff3ee; color: var(--accent-warm); font-size: 0.85rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; display: inline-block; margin: 8px 18px; }
   </style>
 </head>
 <body>
 
 <div class="header">
   <h1>Rutina Semanal 💪</h1>
-  <p>Entrenamiento para 5K · Pérdida de grasa</p>
+  <p>Entrenamiento para 5K · Recomposición corporal</p>
 </div>
 
 <div class="tabs-wrap">
@@ -412,441 +129,273 @@ body {
 
 <div class="content">
 
-  <!-- LUNES -->
-
+  <!-- LUNES: FULL BODY A -->
   <div class="day-panel active" id="day-0">
     <div class="day-hero">
       <div class="day-hero-top">
         <div class="day-icon icon-green">🏋️‍♀️</div>
         <div>
-          <h2>Upper Body</h2>
-          <div class="subtitle">Lunes · Fuerza + Caminata</div>
+          <h2>Full Body A · 30 min</h2>
+          <div class="subtitle">Lunes · Fuerza funcional</div>
         </div>
       </div>
       <div class="badges">
-        <span class="badge badge-green">Hombros · Bíceps · Tríceps · Espalda</span>
-        <span class="badge badge-blue">Zona 2</span>
+        <span class="badge badge-green">Piernas · Glúteos · Aductores · Upper</span>
       </div>
     </div>
 
-```
-<div class="progress-wrap" id="prog-0">
-  <div class="progress-top">
-    <span class="progress-label">Progreso del día</span>
-    <span class="progress-count" id="count-0">0 / 0</span>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="fill-0" style="width:0%"></div></div>
-</div>
+    <div class="progress-wrap" id="prog-0">
+      <div class="progress-top">
+        <span class="progress-label">Progreso del día</span>
+        <span class="progress-count" id="count-0">0 / 0</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="fill-0" style="width:0%"></div></div>
+    </div>
 
-<!-- CAMINATA -->
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🚶‍♀️</span>
-    <h3>Caminata Zona 2</h3>
-    <span class="s-badge badge-blue">30 min</span>
-  </div>
-  <div class="walk-block">
-    <div class="walk-icon-big">🏔️</div>
-    <div class="walk-info">
-      <h4>30 min · Zona 2</h4>
-      <p>Ritmo conversacional · Apple Watch zona 2<br>Puedes hacerla antes o después del gym</p>
-    </div>
-  </div>
-</div>
+    <div class="note"><strong>⏱ Objetivo:</strong> 30 min · Descansa 45 seg entre ejercicios · Exhala siempre al esfuerzo (post-hernia)</div>
 
-<!-- HOMBROS -->
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">💪</span>
-    <h3>Hombros</h3>
-    <span class="s-badge badge-green">Set 1</span>
-  </div>
-  <div class="exercise-list">
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Platter serve frontal</div><div class="ex-detail">3 × 15 reps</div></div>
-      <span class="ex-weight">3 kg</span>
+    <!-- CIRCUITO 1 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="s-icon">🔁</span>
+        <h3>Circuito 1 · Piernas + Glúteos</h3>
+        <span class="s-badge badge-green">3 rondas</span>
+      </div>
+      <div class="exercise-list">
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Sentadilla sumo</div><div class="ex-detail">12 reps · mancuerna centro + banda en rodillas</div></div>
+          <span class="ex-weight">6 kg</span>
+        </div>
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Puente de glúteos</div><div class="ex-detail">15 reps · mancuerna en cadera + banda</div></div>
+          <span class="ex-weight">6 kg</span>
+        </div>
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Aducción lateral acostada</div><div class="ex-detail">15 reps c/lado · pierna de abajo sube · banda</div></div>
+          <span class="ex-weight">Banda</span>
+        </div>
+      </div>
     </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Platter serve lateral</div><div class="ex-detail">3 × 15 reps</div></div>
-      <span class="ex-weight">3 kg</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Around the world</div><div class="ex-detail">3 × 15 reps</div></div>
-      <span class="ex-weight">3 kg</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Lateral raises</div><div class="ex-detail">3 × 15 reps</div></div>
-      <span class="ex-weight">3 kg</span>
-    </div>
-  </div>
-</div>
 
-<!-- BÍCEPS & TRÍCEPS -->
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🦾</span>
-    <h3>Bíceps & Tríceps</h3>
-    <span class="s-badge badge-green">Set 2</span>
-  </div>
-  <div class="exercise-list">
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Tricep kickbacks</div><div class="ex-detail">3 × 15 reps</div></div>
-      <span class="ex-weight">3–6 kg</span>
+    <!-- CIRCUITO 2 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="s-icon">🔁</span>
+        <h3>Circuito 2 · Upper + Aductores</h3>
+        <span class="s-badge badge-green">3 rondas</span>
+      </div>
+      <div class="exercise-list">
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Lateral raises</div><div class="ex-detail">15 reps · hombros</div></div>
+          <span class="ex-weight">3 kg</span>
+        </div>
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Bicep curls</div><div class="ex-detail">12 reps</div></div>
+          <span class="ex-weight">6 kg</span>
+        </div>
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Mariposa sentada con banda</div><div class="ex-detail">20 reps · banda sobre muslos · trabaja aductores</div></div>
+          <span class="ex-weight">Banda</span>
+        </div>
+      </div>
     </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Underhand row</div><div class="ex-detail">3 × 12 reps</div></div>
-      <span class="ex-weight">6 kg</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Bicep martillo</div><div class="ex-detail">3 × 12 reps</div></div>
-      <span class="ex-weight">6 kg</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Bicep curls</div><div class="ex-detail">3 × 12 reps</div></div>
-      <span class="ex-weight">6 kg</span>
-    </div>
-  </div>
-</div>
 
-<!-- ESPALDA -->
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🔙</span>
-    <h3>Espalda</h3>
-    <span class="s-badge badge-green">Set 3</span>
-  </div>
-  <div class="exercise-list">
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Skull crushes</div><div class="ex-detail">3 × 15 reps</div></div>
-      <span class="ex-weight">3 kg</span>
+    <!-- CIRCUITO 3 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="s-icon">🔁</span>
+        <h3>Circuito 3 · Espalda + Pierna interna</h3>
+        <span class="s-badge badge-green">3 rondas</span>
+      </div>
+      <div class="exercise-list">
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Underhand row</div><div class="ex-detail">12 reps · espalda y bíceps</div></div>
+          <span class="ex-weight">6 kg</span>
+        </div>
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Zancada lateral</div><div class="ex-detail">12 reps c/lado · activa aductores y glúteo</div></div>
+          <span class="ex-weight">3 kg</span>
+        </div>
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Patada trasera con banda</div><div class="ex-detail">15 reps c/lado · en cuatro puntos</div></div>
+          <span class="ex-weight">Banda</span>
+        </div>
+      </div>
     </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Press up</div><div class="ex-detail">3 × 15 reps</div></div>
-      <span class="ex-weight">3–6 kg</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Abrir brazos</div><div class="ex-detail">3 × 15 reps</div></div>
-      <span class="ex-weight">3 kg</span>
-    </div>
-  </div>
-</div>
 
-<button class="reset-btn" onclick="resetDay(0)">↺ Reiniciar este día</button>
-```
-
+    <button class="reset-btn" onclick="resetDay(0)">↺ Reiniciar este día</button>
   </div>
 
-  <!-- MARTES -->
-
+  <!-- MARTES: RUNNA -->
   <div class="day-panel" id="day-1">
     <div class="day-hero">
       <div class="day-hero-top">
         <div class="day-icon icon-warm">🏃‍♀️</div>
         <div>
-          <h2>Runna · Pushing the Pace</h2>
-          <div class="subtitle">Martes · Entrenamiento 5K + Core</div>
+          <h2>Runna · Entrenamiento 5K</h2>
+          <div class="subtitle">Martes · Según el plan de la semana</div>
         </div>
       </div>
       <div class="badges">
-        <span class="badge badge-warm">Intervalos</span>
-        <span class="badge badge-green">Zona 2 → 4-5</span>
-        <span class="badge badge-purple">Core</span>
+        <span class="badge badge-warm">Runna app</span>
+        <span class="badge badge-green">Zona 2 → 4</span>
       </div>
     </div>
-
-```
-<div class="note">🎧 Día de calidad. No agregar caminata extra — el workout ya incluye zona 2 en warm-up y cool-down. Haz el core después del trote cuando el cuerpo ya está activado.</div>
-
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">⚡</span>
-    <h3>Estructura del workout</h3>
-  </div>
-  <div class="runna-block">
-    <div class="runna-step">
-      <div class="runna-num">1</div>
-      <div class="runna-step-info">
-        <div class="runna-step-name">1 km Warm-up · ritmo conversacional</div>
-        <div class="runna-step-detail">Zona 2 · Apple Watch lo confirma</div>
+    <div class="section">
+      <div class="walk-block">
+        <div class="walk-icon-big">🎧</div>
+        <div class="walk-info">
+          <h4>Sigue el workout del día en Runna</h4>
+          <p>El plan cambia cada semana según tu progresión.<br>Respira por la boca sin culpa · Apple Watch zona 2</p>
+        </div>
       </div>
     </div>
-    <div class="runna-step">
-      <div class="runna-num">2</div>
-      <div class="runna-step-info">
-        <div class="runna-step-name">120 seg caminando · descanso</div>
-        <div class="runna-step-detail">Recuperación activa</div>
-      </div>
-    </div>
-    <div class="repeat-badge">🔁 Repetir × 5</div>
-    <div class="runna-step">
-      <div class="runna-num fast">3</div>
-      <div class="runna-step-info">
-        <div class="runna-step-name">200m FAST · pushing the pace</div>
-        <div class="runna-step-detail">Zona 4-5 · + 90 seg caminando</div>
-      </div>
-    </div>
-    <div class="runna-step">
-      <div class="runna-num">4</div>
-      <div class="runna-step-info">
-        <div class="runna-step-name">1 km Cool-down · ritmo conversacional</div>
-        <div class="runna-step-detail">Zona 2 · termina siempre caminando</div>
-      </div>
-    </div>
+    <div class="note">💡 No agregues caminata extra hoy. El warm-up y cool-down de Runna ya son zona 2. Tu cuerpo necesita recuperarse para el Full Body B del miércoles.</div>
   </div>
-</div>
 
-<!-- CORE MARTES -->
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🫁</span>
-    <h3>Core · Seguro post-hernia</h3>
-    <span class="s-badge badge-purple">~8 min</span>
-  </div>
-  <div class="note"><strong>⚠️ Post-hernia inguinal:</strong> Sin crunch, sin plancha frontal con presión. Exhala al esfuerzo siempre.</div>
-  <div class="exercise-list">
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Respiración diafragmática</div><div class="ex-detail">3 × 8 respiraciones · activa transverso al exhalar</div></div>
-      <span class="ex-weight purple">Sin peso</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Dead bug</div><div class="ex-detail">3 × 8 c/lado · espalda baja pegada al piso</div></div>
-      <span class="ex-weight purple">Sin peso</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Bird dog</div><div class="ex-detail">3 × 8 c/lado · brazo y pierna opuestos, lento</div></div>
-      <span class="ex-weight purple">Sin peso</span>
-    </div>
-  </div>
-</div>
-
-<button class="reset-btn" onclick="resetDay(1)">↺ Reiniciar este día</button>
-```
-
-  </div>
-  <!-- MIÉRCOLES -->
+  <!-- MIÉRCOLES: FULL BODY B -->
   <div class="day-panel" id="day-2">
     <div class="day-hero">
       <div class="day-hero-top">
-        <div class="day-icon icon-green">🦵</div>
+        <div class="day-icon icon-green">🏋️‍♀️</div>
         <div>
-          <h2>Lower Body</h2>
-          <div class="subtitle">Miércoles · Fuerza + Caminata</div>
+          <h2>Full Body B · 30 min</h2>
+          <div class="subtitle">Miércoles · Fuerza funcional</div>
         </div>
       </div>
       <div class="badges">
-        <span class="badge badge-green">Aductores · Glúteos · Piernas</span>
-        <span class="badge badge-blue">Zona 2</span>
+        <span class="badge badge-green">Piernas · Glúteos · Aductores · Upper</span>
       </div>
     </div>
 
-```
-<div class="progress-wrap" id="prog-2">
-  <div class="progress-top">
-    <span class="progress-label">Progreso del día</span>
-    <span class="progress-count" id="count-2">0 / 0</span>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="fill-2" style="width:0%"></div></div>
-</div>
+    <div class="progress-wrap" id="prog-2">
+      <div class="progress-top">
+        <span class="progress-label">Progreso del día</span>
+        <span class="progress-count" id="count-2">0 / 0</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="fill-2" style="width:0%"></div></div>
+    </div>
 
-<!-- CAMINATA -->
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🚶‍♀️</span>
-    <h3>Caminata Zona 2</h3>
-    <span class="s-badge badge-blue">30 min</span>
-  </div>
-  <div class="walk-block">
-    <div class="walk-icon-big">🏔️</div>
-    <div class="walk-info">
-      <h4>30 min · Zona 2</h4>
-      <p>Ritmo conversacional · Apple Watch zona 2<br>Ideal hacerla antes del gym como calentamiento</p>
-    </div>
-  </div>
-</div>
+    <div class="note"><strong>⏱ Objetivo:</strong> 30 min · Descansa 45 seg entre ejercicios · Exhala siempre al esfuerzo (post-hernia)</div>
 
-<!-- COMPUESTOS -->
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🏋️‍♀️</span>
-    <h3>Compuestos</h3>
-    <span class="s-badge badge-green">Set 1</span>
-  </div>
-  <div class="exercise-list">
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Sentadilla sumo</div><div class="ex-detail">3 × 15 · mancuerna centro + banda en rodillas</div></div>
-      <span class="ex-weight">6 kg</span>
+    <!-- CIRCUITO 1 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="s-icon">🔁</span>
+        <h3>Circuito 1 · Piernas + Aductores</h3>
+        <span class="s-badge badge-green">3 rondas</span>
+      </div>
+      <div class="exercise-list">
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Sentadilla búlgara</div><div class="ex-detail">10 reps c/lado · pie trasero elevado</div></div>
+          <span class="ex-weight">3 kg</span>
+        </div>
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Clamshell con banda</div><div class="ex-detail">20 reps c/lado · acostada de lado · aductores y glúteo medio</div></div>
+          <span class="ex-weight">Banda</span>
+        </div>
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Aducción de pie con banda</div><div class="ex-detail">15 reps c/lado · banda anclada al lado</div></div>
+          <span class="ex-weight">Banda</span>
+        </div>
+      </div>
     </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Zancada lateral</div><div class="ex-detail">3 × 12 c/lado</div></div>
-      <span class="ex-weight">3 kg</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Sentadilla búlgara</div><div class="ex-detail">3 × 10 c/lado · pie trasero elevado</div></div>
-      <span class="ex-weight">3 kg</span>
-    </div>
-  </div>
-</div>
 
-<!-- ADUCTORES -->
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🦵</span>
-    <h3>Aductores con banda</h3>
-    <span class="s-badge badge-green">Set 2</span>
-  </div>
-  <div class="exercise-list">
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Aducción de pie</div><div class="ex-detail">3 × 15 c/lado · banda anclada al lado</div></div>
-      <span class="ex-weight">Banda</span>
+    <!-- CIRCUITO 2 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="s-icon">🔁</span>
+        <h3>Circuito 2 · Hombros + Glúteos</h3>
+        <span class="s-badge badge-green">3 rondas</span>
+      </div>
+      <div class="exercise-list">
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Platter serve frontal</div><div class="ex-detail">15 reps · hombros</div></div>
+          <span class="ex-weight">3 kg</span>
+        </div>
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Around the world</div><div class="ex-detail">15 reps · hombros 360°</div></div>
+          <span class="ex-weight">3 kg</span>
+        </div>
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Hip thrust isométrico</div><div class="ex-detail">10 reps · 3 seg hold arriba · glúteo máximo</div></div>
+          <span class="ex-weight">6 kg</span>
+        </div>
+      </div>
     </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Aducción lateral acostada</div><div class="ex-detail">3 × 15 c/lado · pierna de abajo sube</div></div>
-      <span class="ex-weight">Banda</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Mariposa sentada</div><div class="ex-detail">3 × 20 · banda sobre muslos</div></div>
-      <span class="ex-weight">Banda</span>
-    </div>
-  </div>
-</div>
 
-<!-- GLÚTEOS -->
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🍑</span>
-    <h3>Glúteos</h3>
-    <span class="s-badge badge-green">Set 3</span>
-  </div>
-  <div class="exercise-list">
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Puente de glúteos</div><div class="ex-detail">3 × 15 · banda + mancuerna en cadera</div></div>
-      <span class="ex-weight">6 kg</span>
+    <!-- CIRCUITO 3 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="s-icon">🔁</span>
+        <h3>Circuito 3 · Brazos + Pierna interna</h3>
+        <span class="s-badge badge-green">3 rondas</span>
+      </div>
+      <div class="exercise-list">
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Tricep kickbacks</div><div class="ex-detail">15 reps · tríceps</div></div>
+          <span class="ex-weight">3–6 kg</span>
+        </div>
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Bicep martillo</div><div class="ex-detail">12 reps</div></div>
+          <span class="ex-weight">6 kg</span>
+        </div>
+        <div class="exercise-row" onclick="toggleEx(this)">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="ex-info"><div class="ex-name">Sentadilla sumo isométrica</div><div class="ex-detail">10 reps · baja y mantén 3 seg · aductores y cuádriceps</div></div>
+          <span class="ex-weight">6 kg</span>
+        </div>
+      </div>
     </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Patada trasera con banda</div><div class="ex-detail">3 × 15 c/lado · en cuatro puntos</div></div>
-      <span class="ex-weight">Banda</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Clamshell con banda</div><div class="ex-detail">3 × 20 c/lado · acostada de lado</div></div>
-      <span class="ex-weight">Banda</span>
-    </div>
-  </div>
-</div>
 
-<button class="reset-btn" onclick="resetDay(2)">↺ Reiniciar este día</button>
-```
-
+    <button class="reset-btn" onclick="resetDay(2)">↺ Reiniciar este día</button>
   </div>
 
-  <!-- JUEVES -->
-
+  <!-- JUEVES: PILATES REFORMER -->
   <div class="day-panel" id="day-3">
     <div class="day-hero">
       <div class="day-hero-top">
-        <div class="day-icon icon-blue">🚶‍♀️</div>
+        <div class="day-icon icon-purple">🧘‍♀️</div>
         <div>
-          <h2>Caminata + Core</h2>
-          <div class="subtitle">Jueves · Recuperación activa</div>
+          <h2>Pilates Reformer</h2>
+          <div class="subtitle">Jueves · Core · Movilidad · Fuerza funcional</div>
         </div>
       </div>
       <div class="badges">
-        <span class="badge badge-blue">Zona 2 · 30 min</span>
-        <span class="badge badge-purple">Core completo · ~12 min</span>
+        <span class="badge badge-purple">Reformer · Studio</span>
+        <span class="badge badge-green">Core cubierto</span>
       </div>
     </div>
-
-```
-<div class="progress-wrap" id="prog-3">
-  <div class="progress-top">
-    <span class="progress-label">Progreso del día</span>
-    <span class="progress-count" id="count-3">0 / 0</span>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="fill-3" style="width:0%"></div></div>
-</div>
-
-<!-- CAMINATA -->
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🚶‍♀️</span>
-    <h3>Caminata Zona 2</h3>
-    <span class="s-badge badge-blue">30 min</span>
-  </div>
-  <div class="walk-block">
-    <div class="walk-icon-big">🌳</div>
-    <div class="walk-info">
-      <h4>30 min · Zona 2</h4>
-      <p>Día de recuperación activa · ritmo suave<br>Ideal al aire libre si puedes</p>
+    <div class="section">
+      <div class="walk-block">
+        <div class="walk-icon-big">🌸</div>
+        <div class="walk-info">
+          <h4>Clase de Pilates Reformer</h4>
+          <p>Core, movilidad, fuerza funcional y elongación.<br>El reformer trabaja aductores y core profundo — perfecto para tu objetivo.</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
-<!-- CORE COMPLETO JUEVES -->
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🫁</span>
-    <h3>Core completo · Post-hernia</h3>
-    <span class="s-badge badge-purple">~12 min</span>
-  </div>
-  <div class="note"><strong>⚠️ Post-hernia inguinal:</strong> Sin crunch, sin plancha frontal con presión, sin retención de aire. Exhala siempre al esfuerzo. Si sientes presión en ingle, para.</div>
-  <div class="exercise-list">
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Respiración diafragmática</div><div class="ex-detail">3 × 8 respiraciones · activa transverso al exhalar lento</div></div>
-      <span class="ex-weight purple">Sin peso</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Dead bug</div><div class="ex-detail">3 × 8 c/lado · espalda baja pegada al piso siempre</div></div>
-      <span class="ex-weight purple">Sin peso</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Heel slides</div><div class="ex-detail">3 × 10 c/lado · desliza talón lentamente</div></div>
-      <span class="ex-weight purple">Sin peso</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Bird dog</div><div class="ex-detail">3 × 8 c/lado · brazo y pierna opuestos, sostenido 2 seg</div></div>
-      <span class="ex-weight purple">Sin peso</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Plancha lateral</div><div class="ex-detail">3 × 20 seg c/lado · sobre codo, cadera arriba</div></div>
-      <span class="ex-weight purple">Sin peso</span>
-    </div>
-  </div>
-</div>
-
-<button class="reset-btn" onclick="resetDay(3)">↺ Reiniciar este día</button>
-```
-
+    <div class="note">💡 El pilates reformer cubre todo el core — no necesitas ejercicios adicionales hoy. Disfruta la clase.</div>
   </div>
 
-  <!-- VIERNES -->
-
+  <!-- VIERNES: DESCANSO -->
   <div class="day-panel" id="day-4">
     <div class="day-hero">
       <div class="day-hero-top">
@@ -869,174 +418,92 @@ body {
     </div>
   </div>
 
-  <!-- SÁBADO -->
-
+  <!-- SÁBADO: PILATES REFORMER -->
   <div class="day-panel" id="day-5">
     <div class="day-hero">
       <div class="day-hero-top">
         <div class="day-icon icon-purple">🧘‍♀️</div>
         <div>
-          <h2>Pilates + Caminata</h2>
-          <div class="subtitle">Sábado · Movilidad + Zona 2</div>
+          <h2>Pilates Reformer</h2>
+          <div class="subtitle">Sábado · Core · Movilidad · Fuerza funcional</div>
         </div>
       </div>
       <div class="badges">
-        <span class="badge badge-purple">Pilates 45-60 min</span>
-        <span class="badge badge-blue">Caminata Zona 2</span>
+        <span class="badge badge-purple">Reformer · Studio</span>
+        <span class="badge badge-green">Core cubierto</span>
       </div>
     </div>
-
-```
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🧘‍♀️</span>
-    <h3>Pilates</h3>
-    <span class="s-badge badge-purple">45–60 min</span>
-  </div>
-  <div class="walk-block">
-    <div class="walk-icon-big">🌸</div>
-    <div class="walk-info">
-      <h4>Clase de Pilates · Studio</h4>
-      <p>Core, movilidad y elongación<br>Ya tiene mucho trabajo de centro — sin core extra hoy</p>
+    <div class="section">
+      <div class="walk-block">
+        <div class="walk-icon-big">✨</div>
+        <div class="walk-info">
+          <h4>Clase de Pilates Reformer</h4>
+          <p>Segunda sesión de la semana. El reformer complementa perfectamente los dos días de fuerza y los dos de trote.</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🚶‍♀️</span>
-    <h3>Caminata Zona 2</h3>
-    <span class="s-badge badge-blue">30 min</span>
-  </div>
-  <div class="walk-block">
-    <div class="walk-icon-big">☀️</div>
-    <div class="walk-info">
-      <h4>30 min · Zona 2</h4>
-      <p>Antes o después del pilates<br>Ritmo conversacional · Apple Watch zona 2</p>
-    </div>
-  </div>
-</div>
-```
-
+    <div class="note">💡 Dos días de reformer a la semana es suficiente para cubrir core completo y movilidad. No necesitas agregar nada más hoy.</div>
   </div>
 
-  <!-- DOMINGO -->
-
+  <!-- DOMINGO: TROTE -->
   <div class="day-panel" id="day-6">
     <div class="day-hero">
       <div class="day-hero-top">
         <div class="day-icon icon-warm">🏃‍♀️</div>
         <div>
-          <h2>Trote + Core</h2>
-          <div class="subtitle">Domingo · Base aeróbica 5K + Core</div>
+          <h2>Trote Largo · Zona 2</h2>
+          <div class="subtitle">Domingo · Base aeróbica 5K</div>
         </div>
       </div>
       <div class="badges">
         <span class="badge badge-warm">Trote conversacional</span>
         <span class="badge badge-green">Base 5K</span>
-        <span class="badge badge-purple">Core</span>
       </div>
     </div>
-
-```
-<div class="progress-wrap" id="prog-6">
-  <div class="progress-top">
-    <span class="progress-label">Progreso del día</span>
-    <span class="progress-count" id="count-6">0 / 0</span>
+    <div class="section">
+      <div class="walk-block">
+        <div class="walk-icon-big">🌄</div>
+        <div class="walk-info">
+          <h4>30–40 min · ritmo conversacional</h4>
+          <p>Ve aumentando 5 min cada semana hacia los 40 min.<br>Apple Watch confirma zona 2 · puedes hablar durante todo el trote.</p>
+        </div>
+      </div>
+    </div>
+    <div class="note">💡 Progresión sugerida: semana 1-2 → 30 min · semana 3-4 → 35 min · semana 5+ → 40 min. Respira por la boca sin culpa.</div>
   </div>
-  <div class="progress-bar"><div class="progress-fill" id="fill-6" style="width:0%"></div></div>
+
 </div>
-
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🏃‍♀️</span>
-    <h3>Trote largo · Zona 2</h3>
-  </div>
-  <div class="walk-block">
-    <div class="walk-icon-big">🌄</div>
-    <div class="walk-info">
-      <h4>30–40 min · ritmo conversacional</h4>
-      <p>Ve aumentando 5 min cada semana hacia los 40 min<br>Apple Watch confirma zona 2 · puedes hablar durante todo el trote</p>
-    </div>
-  </div>
-</div>
-
-<div class="note">💡 Progresión sugerida: semana 1-2 → 30 min · semana 3-4 → 35 min · semana 5+ → 40 min</div>
-
-<!-- CORE DOMINGO -->
-<div class="section">
-  <div class="section-header">
-    <span class="s-icon">🫁</span>
-    <h3>Core · Seguro post-hernia</h3>
-    <span class="s-badge badge-purple">~8 min</span>
-  </div>
-  <div class="note"><strong>⚠️ Post-hernia inguinal:</strong> Sin crunch, sin plancha frontal con presión. Exhala al esfuerzo siempre.</div>
-  <div class="exercise-list">
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Respiración diafragmática</div><div class="ex-detail">3 × 8 respiraciones · activa transverso al exhalar</div></div>
-      <span class="ex-weight purple">Sin peso</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Dead bug</div><div class="ex-detail">3 × 8 c/lado · espalda baja pegada al piso</div></div>
-      <span class="ex-weight purple">Sin peso</span>
-    </div>
-    <div class="exercise-row" onclick="toggleEx(this)">
-      <div class="checkbox"><span class="checkbox-check">✓</span></div>
-      <div class="ex-info"><div class="ex-name">Heel slides</div><div class="ex-detail">3 × 10 c/lado · desliza talón lentamente</div></div>
-      <span class="ex-weight purple">Sin peso</span>
-    </div>
-  </div>
-</div>
-
-<button class="reset-btn" onclick="resetDay(6)">↺ Reiniciar este día</button>
-```
-
-  </div>
-
-</div><!-- end content -->
 
 <script>
   function showDay(idx) {
-    document.querySelectorAll('.day-panel').forEach((p, i) => {
-      p.classList.toggle('active', i === idx);
-    });
-    document.querySelectorAll('.tab').forEach((t, i) => {
-      t.classList.toggle('active', i === idx);
-    });
+    document.querySelectorAll('.day-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+    document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', i===idx));
     updateProgress(idx);
   }
-
   function toggleEx(row) {
     row.classList.toggle('done');
     const panel = row.closest('.day-panel');
-    const idx = parseInt(panel.id.replace('day-', ''));
+    const idx = parseInt(panel.id.replace('day-',''));
     updateProgress(idx);
   }
-
   function updateProgress(idx) {
-    const panel = document.getElementById('day-' + idx);
+    const panel = document.getElementById('day-'+idx);
     if (!panel) return;
-    const fill = document.getElementById('fill-' + idx);
-    const count = document.getElementById('count-' + idx);
+    const fill = document.getElementById('fill-'+idx);
+    const count = document.getElementById('count-'+idx);
     if (!fill || !count) return;
     const rows = panel.querySelectorAll('.exercise-row');
     const done = panel.querySelectorAll('.exercise-row.done').length;
     const total = rows.length;
-    fill.style.width = total ? (done / total * 100) + '%' : '0%';
-    count.textContent = done + ' / ' + total;
+    fill.style.width = total ? (done/total*100)+'%' : '0%';
+    count.textContent = done+' / '+total;
   }
-
   function resetDay(idx) {
-    const panel = document.getElementById('day-' + idx);
+    const panel = document.getElementById('day-'+idx);
     panel.querySelectorAll('.exercise-row.done').forEach(r => r.classList.remove('done'));
     updateProgress(idx);
   }
-
-  // Init all progress bars
-  [0, 1, 2, 3, 6].forEach(updateProgress);
+  [0,2].forEach(updateProgress);
 </script>
-
 </body>
 </html>
