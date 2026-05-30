@@ -20,7 +20,7 @@
 
     .header { background: var(--accent); padding: 28px 20px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(45,106,79,0.15); }
     .header h1 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: #fff; letter-spacing: -0.02em; }
-    .header p { font-size: 1rem; color: rgba(255,255,255,0.7); margin-top: 2px; }
+    .header p { font-size: 0.95rem; color: rgba(255,255,255,0.7); margin-top: 2px; }
 
     .tabs-wrap { overflow-x: auto; background: var(--accent); padding: 0 16px 16px; scrollbar-width: none; }
     .tabs-wrap::-webkit-scrollbar { display: none; }
@@ -43,9 +43,9 @@
     .icon-purple { background: #f0ebf8; }
     .icon-rest { background: var(--rest-bg); }
     .day-hero h2 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--text); line-height: 1.2; }
-    .day-hero .subtitle { font-size: 1rem; color: var(--text-muted); margin-top: 2px; }
+    .day-hero .subtitle { font-size: 0.95rem; color: var(--text-muted); margin-top: 2px; }
     .badges { display: flex; flex-wrap: wrap; gap: 6px; }
-    .badge { font-size: 0.9rem; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
+    .badge { font-size: 0.85rem; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
     .badge-green { background: var(--tag-bg); color: var(--tag-text); }
     .badge-blue { background: var(--walk-bg); color: var(--walk-text); }
     .badge-purple { background: #f0ebf8; color: var(--accent-purple); }
@@ -54,7 +54,6 @@
 
     .section { background: var(--surface); border-radius: 16px; margin-bottom: 14px; overflow: hidden; border: 1px solid var(--border); }
     .section-header { padding: 14px 18px 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
-    .section-header .s-icon { font-size: 1rem; }
     .section-header h3 { font-size: 1rem; font-weight: 600; color: var(--text); }
     .section-header .s-badge { margin-left: auto; font-size: 0.85rem; font-weight: 500; padding: 2px 8px; border-radius: 10px; }
 
@@ -69,50 +68,41 @@
     .exercise-row.done .checkbox-check { display: block; }
     .ex-info { flex: 1; min-width: 0; }
     .ex-name { font-size: 1rem; font-weight: 500; color: var(--text); }
-    .ex-detail { font-size: 0.9rem; color: var(--text-muted); margin-top: 1px; }
-    .ex-weight { font-size: 0.9rem; font-weight: 600; color: var(--accent); background: var(--tag-bg); padding: 2px 8px; border-radius: 8px; flex-shrink: 0; }
+    .ex-detail { font-size: 0.88rem; color: var(--text-muted); margin-top: 1px; }
+    .ex-weight { font-size: 0.88rem; font-weight: 600; color: var(--accent); background: var(--tag-bg); padding: 2px 8px; border-radius: 8px; flex-shrink: 0; }
 
     .walk-block { padding: 16px 18px; display: flex; align-items: center; gap: 14px; }
     .walk-icon-big { font-size: 1.8rem; }
     .walk-info h4 { font-size: 1rem; font-weight: 600; }
-    .walk-info p { font-size: 0.9rem; color: var(--text-muted); margin-top: 2px; }
-
-    .runna-block { padding: 16px 18px; }
-    .runna-step { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
-    .runna-step:last-child { border-bottom: none; }
-    .runna-num { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-    .runna-num.fast { background: var(--accent-warm); }
-    .runna-step-info { flex: 1; }
-    .runna-step-name { font-size: 1rem; font-weight: 500; }
-    .runna-step-detail { font-size: 0.9rem; color: var(--text-muted); margin-top: 1px; }
-    .repeat-badge { background: #fff3ee; color: var(--accent-warm); font-size: 0.9rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; display: inline-block; margin: 8px 0 4px; }
+    .walk-info p { font-size: 0.9rem; color: var(--text-muted); margin-top: 2px; line-height: 1.5; }
 
     .rest-content { padding: 24px 18px; text-align: center; }
     .rest-emoji { font-size: 2.5rem; margin-bottom: 10px; }
     .rest-content h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--text); }
-    .rest-content p { font-size: 1rem; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
+    .rest-content p { font-size: 0.95rem; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
 
     .progress-wrap { background: var(--surface); border-radius: 16px; padding: 16px 18px; margin-bottom: 14px; border: 1px solid var(--border); }
     .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .progress-label { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
-    .progress-count { font-size: 1rem; font-weight: 600; color: var(--accent); }
+    .progress-label { font-size: 0.95rem; font-weight: 500; color: var(--text-muted); }
+    .progress-count { font-size: 0.95rem; font-weight: 600; color: var(--accent); }
     .progress-bar { height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 10px; transition: width 0.4s ease; }
 
     .reset-btn { display: block; width: 100%; padding: 13px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px; color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; margin-top: 8px; transition: all 0.2s; }
     .reset-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-    .note { background: #fffbf0; border: 1px solid #f0d080; border-radius: 12px; padding: 12px 14px; font-size: 0.95rem; color: #7a6020; line-height: 1.5; margin-bottom: 14px; }
+    .note { background: #fffbf0; border: 1px solid #f0d080; border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; color: #7a6020; line-height: 1.5; margin-bottom: 14px; }
     .note strong { font-weight: 600; }
 
-    .circuit-badge { background: #fff3ee; color: var(--accent-warm); font-size: 0.85rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; display: inline-block; margin: 8px 18px; }
+    .water-reminder { background: #e8f4fd; border: 1px solid #b8d8f0; border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; color: #3d7ab5; line-height: 1.5; margin-bottom: 14px; }
+    .water-reminder strong { font-weight: 600; }
   </style>
 </head>
 <body>
 
 <div class="header">
   <h1>Rutina Semanal 💪</h1>
-  <p>Entrenamiento para 5K · Recomposición corporal</p>
+  <p>Enfoque en cardio + fuerza · Pérdida de grasa</p>
 </div>
 
 <div class="tabs-wrap">
@@ -129,36 +119,93 @@
 
 <div class="content">
 
-  <!-- LUNES: FULL BODY A -->
+  <!-- LUNES: CAMINATA -->
   <div class="day-panel active" id="day-0">
+    <div class="day-hero">
+      <div class="day-hero-top">
+        <div class="day-icon icon-blue">🚶‍♀️</div>
+        <div>
+          <h2>Caminata Zona 2</h2>
+          <div class="subtitle">Lunes · Recuperación activa</div>
+        </div>
+      </div>
+      <div class="badges">
+        <span class="badge badge-blue">Zona 2 · 30 min</span>
+        <span class="badge badge-rest">Descanso de fuerza</span>
+      </div>
+    </div>
+    <div class="water-reminder">💧 <strong>Meta de agua hoy:</strong> 2 litros mínimo. Empieza desde la mañana, no esperes la tarde.</div>
+    <div class="section">
+      <div class="walk-block">
+        <div class="walk-icon-big">🌳</div>
+        <div class="walk-info">
+          <h4>30 min · Zona 2</h4>
+          <p>Ritmo conversacional · Apple Watch confirma zona 2<br>Ideal al aire libre · Parque Lincoln o Polanco</p>
+        </div>
+      </div>
+    </div>
+    <div class="note">💡 Hoy es descanso de fuerza e intensidad. La caminata zona 2 activa la circulación, baja el cortisol y quema grasa sin estresar el cuerpo.</div>
+  </div>
+
+  <!-- MARTES: RUNNA -->
+  <div class="day-panel" id="day-1">
+    <div class="day-hero">
+      <div class="day-hero-top">
+        <div class="day-icon icon-warm">🏃‍♀️</div>
+        <div>
+          <h2>Runna · Trote</h2>
+          <div class="subtitle">Martes · Cardio 5K</div>
+        </div>
+      </div>
+      <div class="badges">
+        <span class="badge badge-warm">Runna app</span>
+        <span class="badge badge-green">Cardio principal</span>
+      </div>
+    </div>
+    <div class="water-reminder">💧 <strong>Antes de correr:</strong> 500 ml de agua al menos 30 min antes.</div>
+    <div class="section">
+      <div class="walk-block">
+        <div class="walk-icon-big">🎧</div>
+        <div class="walk-info">
+          <h4>Sigue el workout del día en Runna</h4>
+          <p>El plan cambia cada semana según tu progresión.<br>Respira por la boca sin culpa · Apple Watch zona 2 en warm-up y cool-down.</p>
+        </div>
+      </div>
+    </div>
+    <div class="note">💡 El cardio es tu herramienta principal para bajar el porcentaje de grasa. Runna dos veces a la semana es el núcleo del plan de María.</div>
+  </div>
+
+  <!-- MIÉRCOLES: FUERZA + CAMINATA -->
+  <div class="day-panel" id="day-2">
     <div class="day-hero">
       <div class="day-hero-top">
         <div class="day-icon icon-green">🏋️‍♀️</div>
         <div>
-          <h2>Full Body A · 30 min</h2>
-          <div class="subtitle">Lunes · Fuerza funcional</div>
+          <h2>Fuerza + Caminata</h2>
+          <div class="subtitle">Miércoles · Full Body 30 min + Zona 2</div>
         </div>
       </div>
       <div class="badges">
-        <span class="badge badge-green">Piernas · Glúteos · Aductores · Upper</span>
+        <span class="badge badge-green">Fuerza funcional</span>
+        <span class="badge badge-blue">Caminata zona 2</span>
       </div>
     </div>
 
-    <div class="progress-wrap" id="prog-0">
+    <div class="progress-wrap" id="prog-2">
       <div class="progress-top">
         <span class="progress-label">Progreso del día</span>
-        <span class="progress-count" id="count-0">0 / 0</span>
+        <span class="progress-count" id="count-2">0 / 0</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" id="fill-0" style="width:0%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" id="fill-2" style="width:0%"></div></div>
     </div>
 
-    <div class="note"><strong>⏱ Objetivo:</strong> 30 min · Descansa 45 seg entre ejercicios · Exhala siempre al esfuerzo (post-hernia)</div>
+    <div class="water-reminder">💧 <strong>Meta de agua hoy:</strong> 2 litros · 500 ml antes del entrenamiento.</div>
+    <div class="note"><strong>⏱ Objetivo:</strong> 30 min · Descansa 45 seg entre ejercicios · Exhala al esfuerzo siempre · Post-hernia: sin retención de aire.</div>
 
-    <!-- CIRCUITO 1 -->
     <div class="section">
       <div class="section-header">
-        <span class="s-icon">🔁</span>
-        <h3>Circuito 1 · Piernas + Glúteos</h3>
+        <span>🔁</span>
+        <h3>Circuito 1 · Piernas + Glúteos + Aductores</h3>
         <span class="s-badge badge-green">3 rondas</span>
       </div>
       <div class="exercise-list">
@@ -180,11 +227,10 @@
       </div>
     </div>
 
-    <!-- CIRCUITO 2 -->
     <div class="section">
       <div class="section-header">
-        <span class="s-icon">🔁</span>
-        <h3>Circuito 2 · Upper + Aductores</h3>
+        <span>🔁</span>
+        <h3>Circuito 2 · Upper Body</h3>
         <span class="s-badge badge-green">3 rondas</span>
       </div>
       <div class="exercise-list">
@@ -200,167 +246,28 @@
         </div>
         <div class="exercise-row" onclick="toggleEx(this)">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="ex-info"><div class="ex-name">Mariposa sentada con banda</div><div class="ex-detail">20 reps · banda sobre muslos · trabaja aductores</div></div>
-          <span class="ex-weight">Banda</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- CIRCUITO 3 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="s-icon">🔁</span>
-        <h3>Circuito 3 · Espalda + Pierna interna</h3>
-        <span class="s-badge badge-green">3 rondas</span>
-      </div>
-      <div class="exercise-list">
-        <div class="exercise-row" onclick="toggleEx(this)">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="ex-info"><div class="ex-name">Underhand row</div><div class="ex-detail">12 reps · espalda y bíceps</div></div>
           <span class="ex-weight">6 kg</span>
         </div>
         <div class="exercise-row" onclick="toggleEx(this)">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="ex-info"><div class="ex-name">Zancada lateral</div><div class="ex-detail">12 reps c/lado · activa aductores y glúteo</div></div>
-          <span class="ex-weight">3 kg</span>
-        </div>
-        <div class="exercise-row" onclick="toggleEx(this)">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="ex-info"><div class="ex-name">Patada trasera con banda</div><div class="ex-detail">15 reps c/lado · en cuatro puntos</div></div>
-          <span class="ex-weight">Banda</span>
-        </div>
-      </div>
-    </div>
-
-    <button class="reset-btn" onclick="resetDay(0)">↺ Reiniciar este día</button>
-  </div>
-
-  <!-- MARTES: RUNNA -->
-  <div class="day-panel" id="day-1">
-    <div class="day-hero">
-      <div class="day-hero-top">
-        <div class="day-icon icon-warm">🏃‍♀️</div>
-        <div>
-          <h2>Runna · Entrenamiento 5K</h2>
-          <div class="subtitle">Martes · Según el plan de la semana</div>
-        </div>
-      </div>
-      <div class="badges">
-        <span class="badge badge-warm">Runna app</span>
-        <span class="badge badge-green">Zona 2 → 4</span>
-      </div>
-    </div>
-    <div class="section">
-      <div class="walk-block">
-        <div class="walk-icon-big">🎧</div>
-        <div class="walk-info">
-          <h4>Sigue el workout del día en Runna</h4>
-          <p>El plan cambia cada semana según tu progresión.<br>Respira por la boca sin culpa · Apple Watch zona 2</p>
-        </div>
-      </div>
-    </div>
-    <div class="note">💡 No agregues caminata extra hoy. El warm-up y cool-down de Runna ya son zona 2. Tu cuerpo necesita recuperarse para el Full Body B del miércoles.</div>
-  </div>
-
-  <!-- MIÉRCOLES: FULL BODY B -->
-  <div class="day-panel" id="day-2">
-    <div class="day-hero">
-      <div class="day-hero-top">
-        <div class="day-icon icon-green">🏋️‍♀️</div>
-        <div>
-          <h2>Full Body B · 30 min</h2>
-          <div class="subtitle">Miércoles · Fuerza funcional</div>
-        </div>
-      </div>
-      <div class="badges">
-        <span class="badge badge-green">Piernas · Glúteos · Aductores · Upper</span>
-      </div>
-    </div>
-
-    <div class="progress-wrap" id="prog-2">
-      <div class="progress-top">
-        <span class="progress-label">Progreso del día</span>
-        <span class="progress-count" id="count-2">0 / 0</span>
-      </div>
-      <div class="progress-bar"><div class="progress-fill" id="fill-2" style="width:0%"></div></div>
-    </div>
-
-    <div class="note"><strong>⏱ Objetivo:</strong> 30 min · Descansa 45 seg entre ejercicios · Exhala siempre al esfuerzo (post-hernia)</div>
-
-    <!-- CIRCUITO 1 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="s-icon">🔁</span>
-        <h3>Circuito 1 · Piernas + Aductores</h3>
-        <span class="s-badge badge-green">3 rondas</span>
-      </div>
-      <div class="exercise-list">
-        <div class="exercise-row" onclick="toggleEx(this)">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="ex-info"><div class="ex-name">Sentadilla búlgara</div><div class="ex-detail">10 reps c/lado · pie trasero elevado</div></div>
-          <span class="ex-weight">3 kg</span>
-        </div>
-        <div class="exercise-row" onclick="toggleEx(this)">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="ex-info"><div class="ex-name">Clamshell con banda</div><div class="ex-detail">20 reps c/lado · acostada de lado · aductores y glúteo medio</div></div>
-          <span class="ex-weight">Banda</span>
-        </div>
-        <div class="exercise-row" onclick="toggleEx(this)">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="ex-info"><div class="ex-name">Aducción de pie con banda</div><div class="ex-detail">15 reps c/lado · banda anclada al lado</div></div>
-          <span class="ex-weight">Banda</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- CIRCUITO 2 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="s-icon">🔁</span>
-        <h3>Circuito 2 · Hombros + Glúteos</h3>
-        <span class="s-badge badge-green">3 rondas</span>
-      </div>
-      <div class="exercise-list">
-        <div class="exercise-row" onclick="toggleEx(this)">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="ex-info"><div class="ex-name">Platter serve frontal</div><div class="ex-detail">15 reps · hombros</div></div>
-          <span class="ex-weight">3 kg</span>
-        </div>
-        <div class="exercise-row" onclick="toggleEx(this)">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="ex-info"><div class="ex-name">Around the world</div><div class="ex-detail">15 reps · hombros 360°</div></div>
-          <span class="ex-weight">3 kg</span>
-        </div>
-        <div class="exercise-row" onclick="toggleEx(this)">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="ex-info"><div class="ex-name">Hip thrust isométrico</div><div class="ex-detail">10 reps · 3 seg hold arriba · glúteo máximo</div></div>
-          <span class="ex-weight">6 kg</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- CIRCUITO 3 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="s-icon">🔁</span>
-        <h3>Circuito 3 · Brazos + Pierna interna</h3>
-        <span class="s-badge badge-green">3 rondas</span>
-      </div>
-      <div class="exercise-list">
-        <div class="exercise-row" onclick="toggleEx(this)">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="ex-info"><div class="ex-name">Tricep kickbacks</div><div class="ex-detail">15 reps · tríceps</div></div>
+          <div class="ex-info"><div class="ex-name">Tricep kickbacks</div><div class="ex-detail">15 reps</div></div>
           <span class="ex-weight">3–6 kg</span>
         </div>
-        <div class="exercise-row" onclick="toggleEx(this)">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="ex-info"><div class="ex-name">Bicep martillo</div><div class="ex-detail">12 reps</div></div>
-          <span class="ex-weight">6 kg</span>
-        </div>
-        <div class="exercise-row" onclick="toggleEx(this)">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="ex-info"><div class="ex-name">Sentadilla sumo isométrica</div><div class="ex-detail">10 reps · baja y mantén 3 seg · aductores y cuádriceps</div></div>
-          <span class="ex-weight">6 kg</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span>🚶‍♀️</span>
+        <h3>Caminata Zona 2</h3>
+        <span class="s-badge badge-blue">30 min</span>
+      </div>
+      <div class="walk-block">
+        <div class="walk-icon-big">🏔️</div>
+        <div class="walk-info">
+          <h4>30 min · Zona 2</h4>
+          <p>Antes o después del gym · ritmo conversacional<br>Apple Watch confirma zona 2</p>
         </div>
       </div>
     </div>
@@ -368,108 +275,145 @@
     <button class="reset-btn" onclick="resetDay(2)">↺ Reiniciar este día</button>
   </div>
 
-  <!-- JUEVES: PILATES REFORMER -->
+  <!-- JUEVES: PILATES REFORMER + CAMINATA -->
   <div class="day-panel" id="day-3">
     <div class="day-hero">
       <div class="day-hero-top">
         <div class="day-icon icon-purple">🧘‍♀️</div>
         <div>
-          <h2>Pilates Reformer</h2>
-          <div class="subtitle">Jueves · Core · Movilidad · Fuerza funcional</div>
+          <h2>Pilates Reformer + Caminata</h2>
+          <div class="subtitle">Jueves · Core · Movilidad · Zona 2</div>
         </div>
       </div>
       <div class="badges">
         <span class="badge badge-purple">Reformer · Studio</span>
-        <span class="badge badge-green">Core cubierto</span>
+        <span class="badge badge-blue">Caminata zona 2</span>
       </div>
     </div>
+    <div class="water-reminder">💧 <strong>Meta de agua hoy:</strong> 2 litros · 500 ml antes de la clase.</div>
     <div class="section">
       <div class="walk-block">
         <div class="walk-icon-big">🌸</div>
         <div class="walk-info">
           <h4>Clase de Pilates Reformer</h4>
-          <p>Core, movilidad, fuerza funcional y elongación.<br>El reformer trabaja aductores y core profundo — perfecto para tu objetivo.</p>
+          <p>Core profundo, aductores, movilidad y elongación.<br>Menciona tu hernia inguinal al instructor si es clase nueva.</p>
         </div>
-      </div>
-    </div>
-    <div class="note">💡 El pilates reformer cubre todo el core — no necesitas ejercicios adicionales hoy. Disfruta la clase.</div>
-  </div>
-
-  <!-- VIERNES: DESCANSO -->
-  <div class="day-panel" id="day-4">
-    <div class="day-hero">
-      <div class="day-hero-top">
-        <div class="day-icon icon-rest">😴</div>
-        <div>
-          <h2>Descanso Total</h2>
-          <div class="subtitle">Viernes · Tu cuerpo lo necesita</div>
-        </div>
-      </div>
-      <div class="badges">
-        <span class="badge badge-rest">Sin entrenamiento</span>
       </div>
     </div>
     <div class="section">
-      <div class="rest-content">
-        <div class="rest-emoji">🛁</div>
-        <h3>Recuperación completa</h3>
-        <p>Tu cuerpo construye músculo y quema grasa cuando descansas.<br>Hidratación, sueño y alimentación hoy son parte del entrenamiento.</p>
+      <div class="section-header">
+        <span>🚶‍♀️</span>
+        <h3>Caminata Zona 2</h3>
+        <span class="s-badge badge-blue">30 min</span>
+      </div>
+      <div class="walk-block">
+        <div class="walk-icon-big">🌳</div>
+        <div class="walk-info">
+          <h4>30 min · Zona 2</h4>
+          <p>Antes o después del pilates · ritmo suave<br>Apple Watch confirma zona 2</p>
+        </div>
       </div>
     </div>
+    <div class="note">💡 El pilates reformer cubre todo el core. No necesitas ejercicios adicionales hoy.</div>
   </div>
 
-  <!-- SÁBADO: PILATES REFORMER -->
-  <div class="day-panel" id="day-5">
+  <!-- VIERNES: CAMINATA -->
+  <div class="day-panel" id="day-4">
     <div class="day-hero">
       <div class="day-hero-top">
-        <div class="day-icon icon-purple">🧘‍♀️</div>
+        <div class="day-icon icon-blue">🚶‍♀️</div>
         <div>
-          <h2>Pilates Reformer</h2>
-          <div class="subtitle">Sábado · Core · Movilidad · Fuerza funcional</div>
+          <h2>Caminata Zona 2</h2>
+          <div class="subtitle">Viernes · Recuperación activa</div>
         </div>
       </div>
       <div class="badges">
-        <span class="badge badge-purple">Reformer · Studio</span>
-        <span class="badge badge-green">Core cubierto</span>
+        <span class="badge badge-blue">Zona 2 · 30 min</span>
+        <span class="badge badge-rest">Descanso de intensidad</span>
       </div>
     </div>
+    <div class="water-reminder">💧 <strong>Meta de agua hoy:</strong> 2 litros mínimo.</div>
+    <div class="section">
+      <div class="walk-block">
+        <div class="walk-icon-big">☀️</div>
+        <div class="walk-info">
+          <h4>30 min · Zona 2</h4>
+          <p>Día de recuperación activa · ritmo suave<br>Ideal al aire libre · Prepara el cuerpo para el sábado</p>
+        </div>
+      </div>
+    </div>
+    <div class="note">💡 Viernes es descanso de intensidad. La caminata baja el cortisol acumulado de la semana y mejora la recuperación muscular.</div>
+  </div>
+
+  <!-- SÁBADO: PILATES FIRE MAT + CAMINATA -->
+  <div class="day-panel" id="day-5">
+    <div class="day-hero">
+      <div class="day-hero-top">
+        <div class="day-icon icon-purple">🔥</div>
+        <div>
+          <h2>Pilates Fire Mat + Caminata</h2>
+          <div class="subtitle">Sábado · Fuerza + Core + Zona 2</div>
+        </div>
+      </div>
+      <div class="badges">
+        <span class="badge badge-purple">Fire Mat · Studio</span>
+        <span class="badge badge-blue">Caminata zona 2</span>
+        <span class="badge badge-warm">Fuerza + Core</span>
+      </div>
+    </div>
+    <div class="water-reminder">💧 <strong>Meta de agua hoy:</strong> 2 litros · 500 ml antes de la clase.</div>
     <div class="section">
       <div class="walk-block">
         <div class="walk-icon-big">✨</div>
         <div class="walk-info">
-          <h4>Clase de Pilates Reformer</h4>
-          <p>Segunda sesión de la semana. El reformer complementa perfectamente los dos días de fuerza y los dos de trote.</p>
+          <h4>Pilates Fire Mat · Clase con fuerza</h4>
+          <p>Wunda Chair + Springboard + Mat combinados.<br>Más intenso que el reformer — trabaja todo el cuerpo con fuerza y core.</p>
         </div>
       </div>
     </div>
-    <div class="note">💡 Dos días de reformer a la semana es suficiente para cubrir core completo y movilidad. No necesitas agregar nada más hoy.</div>
+    <div class="section">
+      <div class="section-header">
+        <span>🚶‍♀️</span>
+        <h3>Caminata Zona 2</h3>
+        <span class="s-badge badge-blue">30 min</span>
+      </div>
+      <div class="walk-block">
+        <div class="walk-icon-big">🌸</div>
+        <div class="walk-info">
+          <h4>30 min · Zona 2</h4>
+          <p>Antes o después del pilates<br>Ritmo conversacional · Apple Watch zona 2</p>
+        </div>
+      </div>
+    </div>
+    <div class="note">💡 El Fire Mat es tu clase más intensa de la semana. Si saliste muy cargada, evalúa mañana cómo están las piernas antes del trote.</div>
   </div>
 
-  <!-- DOMINGO: TROTE -->
+  <!-- DOMINGO: RUNNA TROTE LARGO -->
   <div class="day-panel" id="day-6">
     <div class="day-hero">
       <div class="day-hero-top">
         <div class="day-icon icon-warm">🏃‍♀️</div>
         <div>
-          <h2>Trote Largo · Zona 2</h2>
-          <div class="subtitle">Domingo · Base aeróbica 5K</div>
+          <h2>Runna · Trote Largo</h2>
+          <div class="subtitle">Domingo · Base aeróbica · Cardio principal</div>
         </div>
       </div>
       <div class="badges">
-        <span class="badge badge-warm">Trote conversacional</span>
-        <span class="badge badge-green">Base 5K</span>
+        <span class="badge badge-warm">Runna app</span>
+        <span class="badge badge-green">Zona 2 · Base 5K</span>
       </div>
     </div>
+    <div class="water-reminder">💧 <strong>Antes de correr:</strong> 500 ml de agua al menos 30 min antes.</div>
     <div class="section">
       <div class="walk-block">
         <div class="walk-icon-big">🌄</div>
         <div class="walk-info">
-          <h4>30–40 min · ritmo conversacional</h4>
-          <p>Ve aumentando 5 min cada semana hacia los 40 min.<br>Apple Watch confirma zona 2 · puedes hablar durante todo el trote.</p>
+          <h4>Trote largo · Zona 2</h4>
+          <p>Sigue el workout del día en Runna.<br>Este es tu trote de volumen — construye base aeróbica y quema grasa.<br>Respira por la boca sin culpa.</p>
         </div>
       </div>
     </div>
-    <div class="note">💡 Progresión sugerida: semana 1-2 → 30 min · semana 3-4 → 35 min · semana 5+ → 40 min. Respira por la boca sin culpa.</div>
+    <div class="note">💡 Si el sábado te dejó muy cargada, prioriza el ritmo conversacional sobre la distancia. Escucha tu cuerpo.</div>
   </div>
 
 </div>
@@ -503,7 +447,7 @@
     panel.querySelectorAll('.exercise-row.done').forEach(r => r.classList.remove('done'));
     updateProgress(idx);
   }
-  [0,2].forEach(updateProgress);
+  [2].forEach(updateProgress);
 </script>
 </body>
 </html>
